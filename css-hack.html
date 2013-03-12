@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS Hack</title>
+	<style type="text/css">
+	/* !important除IE6外其他浏览器都支持，且优先级最高 */
+	.colorBlock{
+		width:120px;
+		height:120px;
+		background-color:blue;
+		background-color:yellow\9;			/* IE6+IE7+IE8+IE9 */
+		/*background-color:green\9\0;*/		/* IE9（使用此Hack会使IE6、IE7不能继承此Hack上方定义的同属性样式，需在其下方重新定义，不推荐使用。） */
+		/*background-color:yellow\0;*/		/* IE8+IE9+Opera（使用此Hack会使IE6、IE7不能继承此Hack上方定义的同属性样式，需在其下方重新定义，不推荐使用。） */
+		/*background-color:yellow\0\9;*/	/* IE8+IE9+Opera（使用此Hack会使IE6、IE7不能继承此Hack上方定义的同属性样式，需在其下方重新定义，不推荐使用。） */
+		*background-color:orange;			/* IE6+IE7 */
+		/*+background-color:orange;*/		/* IE6+IE7 */
+		_background-color:red;				/* IE6 */
+	}
+	:root .colorBlock{background-color:green\9;}		/* IE9（此Hack的优先级高于@media all and (min-width:0){}写法。） */
+	/*:root .colorBlock{background-color:green\9\0;}*/	/* IE9（此Hack的优先级高于@media all and (min-width:0){}写法。） */
+	/*:root .colorBlock{background-color:green\0;}*/	/* IE9+Opera（此Hack的优先级高于@media all and (min-width:0){}写法。） */
+	/*:root .colorBlock{background-color:green\0\9;}*/	/* IE9+Opera（此Hack的优先级高于@media all and (min-width:0){}写法。） */
+	/*:root .colorBlock{background-color:green;}*/		/* IE9+Opera+Firefox+Chrome+Safari（此Hack的优先级高于标准、@media all and (min-width:0){}和@media screen and (-webkit-min-device-pixel-ratio:0){}写法。） */
+	@media all and (min-width:0){.colorBlock{background-color:#0ff\0;}}			/* IE9+Opera */
+	/*@media all and (min-width:0){.colorBlock{background-color:#0ff\0\9;}}*/	/* IE9+Opera */
+	/*@media all and (min-width:0){.colorBlock{background-color:#0ff\9;}}*/		/* IE9 */
+	/*@media all and (min-width:0){.colorBlock{background-color:#0ff\9\0;}}*/	/* IE9 */
+	/*@media all and (min-width:0){.colorBlock{background-color:#0ff;}}*/		/* IE9+Opera+Firefox+Chrome+Safari（此Hach的优先级高于标准写法） */
+	@media screen and (-webkit-min-device-pixel-ratio:0){.colorBlock{background-color:#f0f;}}	/* Chrome+Safari */
+	/*@media \0 screen {.colorBlock{background-color:black;}}*/		/* IE8 */
+	/*@media \0\9 screen {.colorBlock{background-color:black;}}*/	/* IE8 */
+	/*@media \9 screen {.colorBlock{background-color:black;}}*/		/* IE6+IE7 */
+	/*@media screen {.colorBlock{background-color:black;}}*/		/* IE6+IE7+IE8+IE9+Opera+Firefox+Chrome+Safari */
+	</style>
+</head>
+<body>
+	<ul>
+		<li>Chrome+Safari：紫</li>
+		<li>Firefox：蓝</li>
+		<li>Opera：青</li>
+		<li>IE9：绿</li>
+		<li>IE8：黄</li>
+		<li>IE7：橙</li>
+		<li>IE6：红</li>
+	</ul>
+	<div class="colorBlock"></div>
+</body>
+</html>
